@@ -1,4 +1,4 @@
-# MasterBike_lpag_ing
+# ¡MasterBike landing page!
 Intento de landing page para evaluación ing software que incluye:
 
 - Pestaña principal inicio de sesión de MasterBike.
