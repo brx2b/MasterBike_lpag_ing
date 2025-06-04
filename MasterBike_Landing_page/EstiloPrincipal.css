@@ -1,0 +1,30 @@
+body{
+    background-image: url(imsss/w12757-small.webp);
+    background-color: rgb(75, 160, 250);
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+
+    margin-left: 30px;
+    background-position: 420px -330px;
+    background-size: cover;
+    margin-top: 0px;
+    z-index: 1;
+    overflow: hidden;
+    background-attachment: fixed;
+}
+.bloqueINICIO{
+    background-color: rgb(255,255,255,1);
+    display: block;
+    width: 500px;
+    margin-left: -30px;
+    margin-top: -20px;
+    padding-top: 10px;
+    padding-bottom: 600px;
+    padding-left: 20px;
+}
+input{
+    font-size: 110%;
+}
+button{
+    size: 20%;
+    font-size: 100%;
+}
