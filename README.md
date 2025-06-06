@@ -3,7 +3,7 @@ Intento de landing page para evaluación ing software que incluye:
 
 - Pestaña principal inicio de sesión de MasterBike.
 
-Herramientas utilizadas:
+# Herramientas utilizadas:
 
 - Visual Studio Code
 - HTML y CSS.
