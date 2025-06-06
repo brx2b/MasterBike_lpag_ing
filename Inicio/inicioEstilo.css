@@ -1,0 +1,30 @@
+body{
+    background-color: rgb(255, 255, 255);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    z-index: 1;
+    background-attachment: fixed;
+    
+}
+.centro {
+    display: flex;
+    justify-content: center;  
+    align-items: center;      
+    height: 100vh;   
+    margin-top: -300px;  
+    flex-direction: column;
+}
+.barra {
+    width: 200px; /* ajustable */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.barra-izquierda{
+    background-image: url();
+}
+.barra-derecha{
+    background-image: url();
+}
