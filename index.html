@@ -4,29 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iniciar sesión</title>
-    <script src="scriptPrincipal.js"></script>
+    <script src="scriptPrincipal.js" defer></script>
     <link rel="stylesheet" href="EstiloPrincipal.css">
     <link rel="icon" href="imsss/favicon.ico">
 </head>
-
 <body>
+
     <div class="bloqueINICIO">
         <h1>INICIAR SESIÓN</h1>
-        <br>
-        <input type="text" id="nicknameU" placeholder="Nombre de usuario">
-        <br><br>
-        <input type="password" id="contraU" placeholder="Contraseña">
-        <br><br>
-        <a style="font-size: small;" target="_blank" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIPhgNn384RVpDGOZ3x4WFVKMqkVg5ngfLMIPUHHK4R93KCuVNo_4pxm614kjI6khM1Gs&usqp=CAU">Olvide mi contraseña<br><br></a>
+        
+        <input type="text" id="nicknameU" placeholder="Nombre de usuario" required>
+        <input type="password" id="contraU" placeholder="Contraseña" required>
+        
+        <a class="recuperar-contrasena" href="https://example.com">Olvidé mi contraseña</a>
+        
         <button id="iniciarS" type="button" onclick="iniciar()">Iniciar sesión</button>
-        <p id="errorS"></p>
-        <br><br><br><br>
-        <h2 style="font-family: Arial, Helvetica, sans-serif;">MasterBike</h2>
-        <p style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">¡Bienvenido a MasterBike! En nuestro servicio web podras arrendar tu bicicleta favorita, ¡En pocos minutos! Ofreciendo una experiencia fluida y comoda a la hora de arrendar en nuestro gran catalogo de bicicletas.</p>
-        <img style="width: 450px; border: black; outline: auto; margin-left: 13px;" src="imsss/image.png">
-        <br><br>
-        <p>Telefono: +56 9 42874607</p>
+        <p id="errorS" class="error-message"></p>
+        
+        <h2>MasterBike</h2>
+        <p>¡Bienvenido a MasterBike! En nuestro servicio web podrás arrendar tu bicicleta favorita, ¡en pocos minutos! Ofreciendo una experiencia fluida y cómoda al momento de elegir en nuestro catálogo de bicicletas.</p>
+        <img class="imagen-bicicleta" src="imsss/image.png" alt="Bicicletas">
+        
+        <p>Teléfono: +56 9 42874607</p>
         <p>Correo: mbikes.clientes@masterbike.com</p>
     </div>
-    </body>
+    
+</body>
 </html>
