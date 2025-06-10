@@ -1,4 +1,4 @@
-body{
+body {
     background-color: rgb(255, 255, 255);
     background-position: center;
     background-size: cover;
@@ -6,8 +6,8 @@ body{
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     z-index: 1;
     background-attachment: fixed;
-    
 }
+
 .centro {
     display: flex;
     justify-content: center;  
@@ -16,15 +16,41 @@ body{
     margin-top: -300px;  
     flex-direction: column;
 }
+
 .barra {
     width: 200px; /* ajustable */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 }
-.barra-izquierda{
-    background-image: url();
+
+.barra-izquierda {
+    background-image: url(); /* Add your image URL here */
 }
-.barra-derecha{
-    background-image: url();
+
+.barra-derecha {
+    background-image: url(); /* Add your image URL here */
+}
+
+.menu {
+    margin-top: 20px;  /* Space above the menu */
+}
+
+.menu ul {
+    list-style-type: none;  /* No bullet points */
+    padding: 0;             /* Remove default padding */
+}
+
+.menu li {
+    margin: 10px 0;        /* Space between menu items */
+}
+
+.menu a {
+    text-decoration: none;  /* Remove underline */
+    color: #007BFF;        /* Link color */
+    font-size: 18px;       /* Font size for links */
+}
+
+.menu a:hover {
+    color: #0056b3;       /* Change color on hover */
 }
