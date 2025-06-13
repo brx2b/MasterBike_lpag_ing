@@ -1,29 +1,145 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio</title>
-    <link rel="stylesheet" href="inicioEstilo.css">
-    <script src="scriptInicio.js"></script>
-    <link rel="icon" href="/MasterBike_lpag_ing/imsss/favicon.ico">
+<link rel="icon" href="imsss/favicon.ico">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Inicio Decorado</title>
+<style>
+    
+  /* Reset básico */
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    font-family: 'Lucida Sans', Verdana, Geneva, Tahoma, sans-serif;
+    background: #f0f0f0;
+    display: flex;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  .barra {
+    width: 200px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    flex-shrink: 0;
+    /* Para ver las barras aunque no carguen imagen */
+    background-color: #ccc;
+    border-radius: 0 16px 16px 0;
+    box-shadow: 2px 0 8px rgba(0,0,0,0.1);
+  }
+  .barra-izquierda {
+    background-image: url('/MasterBike_lpag_ing/imsss/Excursiones-5.jpg');
+    background-position: -450px 0px;
+  }
+  .barra-derecha {
+    background-image: url('/MasterBike_lpag_ing/imsss/Cover_159_woman-.jpg');
+    border-radius: 16px 0 0 16px;
+    background-position: -230px 0px;
+
+  }
+  .centro {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+    background-color: rgba(255,255,255,0.9);
+    margin: 0 16px;
+    border-radius: 16px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+    max-width: 1200px;
+    text-align: center;
+  }
+  h1 {
+    font-size: 3rem;
+    margin-bottom: 0.3em;
+    color: #222;
+  }
+  p {
+    font-size: 1.3rem;
+    color: #555;
+    margin-bottom: 2em;
+  }
+  nav.menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+  }
+  nav.menu ul li {
+    margin: 0;
+  }
+  nav.menu ul li a {
+    color: #007BFF;
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 12px 24px;
+    border-radius: 12px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    display: inline-block;
+  }
+  nav.menu ul li a:hover,
+  nav.menu ul li a:focus {
+    background: #0056b3;
+    color: white;
+    outline: none;
+  }
+  
+  @media (max-width: 768px) {
+    body {
+      flex-direction: column;
+      align-items: center;
+    }
+    .barra {
+      width: 100%;
+      height: 150px;
+      border-radius: 16px 16px 0 0 !important;
+      box-shadow: none;
+      margin-bottom: 20px;
+    }
+    .barra-derecha {
+      border-radius: 0 0 16px 16px !important;
+    }
+    .centro {
+      max-width: 90%;
+      margin: 0;
+      border-radius: 16px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+    }
+    nav.menu ul {
+      flex-direction: column;
+      gap: 16px;
+    }
+    nav.menu ul li a {
+      padding: 14px 0;
+      font-size: 1.5rem;
+      text-align: center;
+      display: block;
+      border-radius: 16px;
+    }
+  }
+</style>
 </head>
 <body>
-    <div class="barra barra-izquierda"></div>
-
-    <div class="centro"> 
-        <h1>Inicio</h1><br>
-        
-        
-        <nav class="menu">
-            <ul>
-                <li><a href="rentarBicicleta.html">Rentar Bicicleta</a></li>
-                <li><a href="estadoReparacion.html">Ver Estado de Reparación</a></li>
-            </ul>
-        </nav>
-    </div>
-    
-    <div class="barra barra-derecha"></div>
-    
+  <div class="barra barra-izquierda" role="img" aria-label="Imagen ilustrativa de excursiones en bicicleta en un paisaje natural"></div>
+  <main class="centro">
+    <h1>Bienvenido a MasterBike</h1>
+    <p>Tu mejor opción para rentar bicicletas y consultar estado de reparación.</p>
+    <nav class="menu" aria-label="Menú principal de navegación">
+      <ul>
+        <li><a href="rentarBicicleta.html">Rentar Bicicleta</a></li>
+        <li><a href="estadoReparacion.html">Ver Estado de Reparación</a></li>
+      </ul>
+    </nav>
+  </main>
+  <div class="barra barra-derecha" role="img" aria-label="Imagen ilustrativa de mujer con bicicleta con casco posando sonriente"></div>
 </body>
 </html>
+
