@@ -1,12 +1,12 @@
 body {
     background-image: url(imsss/w12757-small.webp);
-    background-repeat: no-repeat; /* Prevent image from repeating */
+    background-repeat: no-repeat; 
     background-color: rgb(75, 160, 250); 
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     padding: 50px;
-    background-position: center center; /* Center the image */
-    background-size: cover; /* Make sure the image covers the entire background */
-    background-attachment: fixed; /* Keep the image fixed */
+    background-position: center center; 
+    background-size: cover; 
+    background-attachment: fixed; 
 }
 
 .bloqueINICIO {
