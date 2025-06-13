@@ -22,19 +22,7 @@ body {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); 
 }
 
-.barra {
-    width: 200px; 
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-}
 
-.barra-izquierda {
-    background-image: url('../imsss/Excursiones-5.jpg'); 
-}
-.barra-derecha {
-    background-image: url('../imsss/Cover_159_woman-.jpg'); 
-}
 
 .menu {
     margin-top: 20px;  
