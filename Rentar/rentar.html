@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <link rel="icon" href="/MasterBike_lpag_ing/imsss/haz una imagen con las dimensiones de un logo que diga MasterBike y que tenga relación con las bicicletas.jpg">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Rentar Bicicletas - MasterBike</title>
+<style>
+  /* Reset y base */
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    font-family: 'Lucida Sans', Verdana, Geneva, Tahoma, sans-serif;
+    background: #f0f0f0;
+    min-height: 100vh;
+    display: flex;
+    overflow-x: hidden;
+    color: #222;
+  }
+  /* Barras laterales */
+  .barra {
+    width: 200px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    flex-shrink: 0;
+    background-color: #ccc;
+    box-shadow: inset 0 0 15px rgba(0,0,0,0.15);
+  }
+  .barra-izquierda {
+    background-image: url('/imsss/my24-sight-action-graceyhemstreet-5742-xl_001.jpg');
+    background-position: -750px 0px;
+  }
+  .barra-derecha {
+    background-image: url('/imsss/istockphoto-2155980786-2048x2048.jpg');
+    background-position: -450px 0px;
+  }
+  /* Contenedor central */
+  main {
+    flex-grow: 1;
+    display: flex;
+    padding: 24px;
+    gap: 24px;
+    background: rgba(255,255,255,0.95);
+    margin: 24px 0;
+    border-radius: 16px;
+    box-shadow: 0 8px 28px rgba(0,0,0,0.1);
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  /* Catalogo y carrito (layout desktop) */
+  .catalogo {
+    flex: 2;
+    display: grid;
+    grid-template-columns: repeat(auto-fill,minmax(220px,1fr));
+    gap: 24px;
+  }
+  .bicicleta-card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+  }
+  .bicicleta-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  }
+  .bicicleta-img {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+  }
+  .bicicleta-info {
+    padding: 16px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .bicicleta-nombre {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #059669;
+  }
+  .bicicleta-desc {
+    flex-grow: 1;
+    font-size: 0.9rem;
+    color: #555;
+    margin-bottom: 12px;
+  }
+  .bicicleta-precio {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1e40af;
+    margin-bottom: 12px;
+  }
+  .btn-agregar {
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 0;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  .btn-agregar:hover {
+    background-color: #1e40af;
+  }
+  /* Carrito */
+  .carrito {
+    flex: 1;
+    background: #e0f2fe;
+    border-radius: 16px;
+    padding: 16px 20px;
+    box-shadow: inset 0 0 12px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    max-height: 720px;
+  }
+  .carrito h2 {
+    margin-top: 0;
+    font-size: 1.8rem;
+    color: #0369a1;
+    margin-bottom: 16px;
+    text-align: center;
+  }
+  .carrito-lista {
+    flex-grow: 1;
+    overflow-y: auto;
+    margin-bottom: 16px;
+  }
+  .carrito-item {
+    display: flex;
+    justify-content: space-between;
+    background: white;
+    border-radius: 12px;
+    padding: 12px;
+    margin-bottom: 10px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    gap: 8px;
+  }
+  .carrito-item-info {
+    flex-grow: 1;
+  }
+  .carrito-item-nombre {
+    font-weight: 700;
+    color: #065f46;
+  }
+  .carrito-item-cantidad {
+    font-size: 0.9rem;
+    color: #374151;
+    margin-top: 4px;
+  }
+  .carrito-item-precio {
+    font-weight: 600;
+    color: #1e40af;
+    min-width: 70px;
+    text-align: right;
+  }
+  .btn-eliminar {
+    background: #dc2626;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-weight: 700;
+    padding: 6px 12px;
+    cursor: pointer;
+    align-self: center;
+    transition: background-color 0.3s ease;
+  }
+  .btn-eliminar:hover {
+    background: #b91c1c;
+  }
+  .carrito-total {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #0c4a6e;
+    border-top: 2px solid #bae6fd;
+    padding-top: 12px;
+    text-align: right;
+  }
+  /* Boleta resumen */
+  .boleta {
+    margin-top: 20px;
+    padding: 16px;
+    background: #d1fae5;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    display: none;
+    flex-direction: column;
+  }
+  .boleta h3 {
+    text-align: center;
+    color: #065f46;
+    margin-bottom: 12px;
+  }
+  .boleta-lista {
+    margin-bottom: 12px;
+  }
+  .boleta-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 6px;
+    font-size: 1rem;
+    color: #065f46;
+  }
+  .boleta-total {
+    font-weight: 700;
+    font-size: 1.3rem;
+    text-align: right;
+    color: #064e3b;
+  }
+  .btn-generar {
+    margin: 0 auto;
+    margin-top: 10px;
+    padding: 10px 30px;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 14px;
+    background-color: #059669;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    align-self: center;
+  }
+  .btn-generar:hover {
+    background-color: #047857;
+  }
+  /* Scrollbar elegantes */
+  .carrito-lista::-webkit-scrollbar {
+    width: 8px;
+  }
+  .carrito-lista::-webkit-scrollbar-thumb {
+    background: #2563eb;
+    border-radius: 12px;
+  }
+  /* Responsive */
+  @media (max-width: 1024px) {
+    main {
+      flex-direction: column;
+      max-width: 95vw;
+      margin: 24px auto;
+    }
+    .catalogo {
+      grid-template-columns: repeat(auto-fill,minmax(140px,1fr));
+    }
+    .carrito {
+      margin-top: 24px;
+      max-height: none;
+      width: 100%;
+    }
+  }
+  @media (max-width: 480px) {
+    .bicicleta-card {
+      height: 320px;
+    }
+  }
+</style>
+</head>
+<body>
+  <div class="barra barra-izquierda" role="img" aria-label="Paisaje natural con bicicletas"></div>
+  <main>
+    <section class="catalogo" aria-label="Catálogo de bicicletas disponibles para renta">
+      <!-- Las bicicletas se insertarán aquí desde JS -->
+    </section>
+    <aside class="carrito" aria-label="Carrito de bicicletas seleccionadas">
+      <h2>Carrito</h2>
+      <div class="carrito-lista" id="carritoLista">
+        <p>Agrega bicicletas para rentar</p>
+      </div>
+      <div class="carrito-total" id="carritoTotal">Total: $0</div>
+      <button id="generarBoletaBtn" class="btn-generar">Generar Boleta</button>
+      <div class="boleta" id="boleta">
+        <h3>Boleta de Renta</h3>
+        <div class="boleta-lista" id="boletaLista"></div>
+        <div class="boleta-total" id="boletaTotal"></div>
+      </div>
+    </aside>
+  </main>
+  <div class="barra barra-derecha" role="img" aria-label="Persona montando bicicleta"></div>
+
+<script>
+  // Datos de ejemplo: bicicletas en catálogo
+  const bicicletas = [
+    { id: 1, nombre: "Bicicleta Montaña XTR", descripcion: "Robusta, 21 cambios, suspensión delantera.", precio: 15000, img: "https://www.lapolar.cl/dw/image/v2/BCPP_PRD/on/demandware.static/-/Sites-master-catalog/default/dw8e823835/images/large/24153770.jpg?sw=1200&sh=1200&sm=fit" },
+    { id: 2, nombre: "Bicicleta Ruta Speedster", descripcion: "Ligera y aerodinámica para velocidad.", precio: 20000, img: "https://www.fauconbikes.cl/cdn/shop/files/SCOTTSPEEDSTER40.jpg?v=1695928808" },
+    { id: 3, nombre: "Bicicleta Urbana Comfort", descripcion: "Para ciudad, con cesta y guardabarros.", precio: 10000, img: "https://beldacycles.cl/18715-large_default/fuji-crosstown-13-ls-comfort-21vel-bicicleta-urbana.jpg" },
+    { id: 4, nombre: "Bicicleta Eléctrica Volt", descripcion: "Motor eléctrico, asistencia de pedaleo.", precio: 30000, img: "https://voltbikes.co.uk/images/fullrange/metro-black-tile.jpg" },
+    { id: 5, nombre: "Bicicleta Infantil Kids", descripcion: "Con ruedas de apoyo y diseño colorido.", precio: 7000, img: "https://www.oxfordstore.cl/media/catalog/product/cache/88ccc43b947cd63e1edd09165f5ffd71/b/f/bf1219_spine_12_naranjo_2024_01_1_1.jpg" }
+  ];
+
+  let carrito = [];
+
+  // Función para renderizar catálogo
+  function renderCatalogo() {
+    const catalogo = document.querySelector(".catalogo");
+    catalogo.innerHTML = "";
+    bicicletas.forEach(bici => {
+      const card = document.createElement("article");
+      card.className = "bicicleta-card";
+      card.innerHTML = `
+        <img src="${bici.img}" alt="Imagen de ${bici.nombre}" class="bicicleta-img" />
+        <div class="bicicleta-info">
+          <h3 class="bicicleta-nombre">${bici.nombre}</h3>
+          <p class="bicicleta-desc">${bici.descripcion}</p>
+          <div class="bicicleta-precio">$${bici.precio.toLocaleString('es-CL')}</div>
+          <button class="btn-agregar" onclick="agregarAlCarrito(${bici.id})">Agregar</button>
+        </div>
+      `;
+      catalogo.appendChild(card);
+    });
+  }
+
+  // Agregar bicicleta al carrito
+  function agregarAlCarrito(id) {
+    // Buscar si ya está en carrito
+    const biciIndex = carrito.findIndex(item => item.id === id);
+    if (biciIndex === -1) {
+      const biciAgregar = bicicletas.find(b => b.id === id);
+      carrito.push({...biciAgregar, cantidad: 1 });
+    } else {
+      carrito[biciIndex].cantidad++;
+    }
+    actualizarCarrito();
+  }
+
+  // Quitar bicicleta del carrito
+  function quitarDelCarrito(id) {
+    carrito = carrito.filter(item => item.id !== id);
+    actualizarCarrito();
+  }
+
+  // Actualizar carrito en DOM
+  function actualizarCarrito() {
+    const lista = document.getElementById("carritoLista");
+    const totalElem = document.getElementById("carritoTotal");
+    lista.innerHTML = "";
+    if (carrito.length === 0) {
+      lista.innerHTML = "<p>Carrito vacío. Agrega bicicletas para rentar.</p>";
+      totalElem.textContent = "Total: $0";
+      ocultarBoleta();
+      return;
+    }
+    let total = 0;
+    carrito.forEach(item => {
+      total += item.precio * item.cantidad;
+      const div = document.createElement("div");
+      div.className = "carrito-item";
+      div.innerHTML = `
+        <div class="carrito-item-info">
+          <div class="carrito-item-nombre">${item.nombre}</div>
+          <div class="carrito-item-cantidad">Cantidad: ${item.cantidad}</div>
+        </div>
+        <div class="carrito-item-precio">$${(item.precio * item.cantidad).toLocaleString('es-CL')}</div>
+        <button class="btn-eliminar" aria-label="Eliminar ${item.nombre}" onclick="quitarDelCarrito(${item.id})">X</button>
+      `;
+      lista.appendChild(div);
+    });
+    totalElem.textContent = `Total: $${total.toLocaleString('es-CL')}`;
+    ocultarBoleta();
+  }
+
+  // Mostrar boleta
+  function mostrarBoleta() {
+    if(carrito.length === 0) {
+      alert("El carrito está vacío. Agrega bicicletas para rentar.");
+      return;
+    }
+    const boletaElem = document.getElementById("boleta");
+    const boletaLista = document.getElementById("boletaLista");
+    const boletaTotal = document.getElementById("boletaTotal");
+    boletaLista.innerHTML = "";
+    let total = 0;
+
+    carrito.forEach(item => {
+      const div = document.createElement("div");
+      div.className = "boleta-item";
+      div.textContent = `${item.nombre} (x${item.cantidad}) - $${(item.precio * item.cantidad).toLocaleString('es-CL')}`;
+      boletaLista.appendChild(div);
+      total += item.precio * item.cantidad;
+    });
+    boletaTotal.textContent = `Total a pagar: $${total.toLocaleString('es-CL')}`;
+    boletaElem.style.display = "flex";
+  }
+
+  // Ocultar boleta
+  function ocultarBoleta() {
+    document.getElementById("boleta").style.display = "none";
+  }
+
+  document.getElementById("generarBoletaBtn").addEventListener("click", mostrarBoleta);
+
+  // Inicializar
+  renderCatalogo();
+  actualizarCarrito();
+</script>
+</body>
+</html>
+
