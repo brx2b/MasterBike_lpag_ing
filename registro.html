@@ -1,180 +1,119 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-
   <meta charset="UTF-8">
-
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>Formulario de Registro</title>
 
-  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
 
+  <!-- SweetAlert2 -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
 
+  <!-- Ícono y estilos -->
   <link rel="icon" href="imsss/favicon.ico">
-
   <link rel="stylesheet" href="EstiloPrincipal.css">
-
 </head>
-
 <body class="bg-gray-100 flex items-center justify-center min-h-screen">
 
-  <!--Contenedor-->
-
+  <!-- Contenedor -->
   <div class="bg-white p-6 rounded-xl shadow w-full max-w-sm">
-
     <h2 class="text-2xl font-bold text-center text-blue-600 mb-4">Registro Usuario</h2>
 
-    <!--Formulario-->
-
-    <form id="loginForm" class="space-y-4" action="">
-
-      <!--Campo user-->
-
+    <!-- Formulario -->
+    <form id="loginForm" class="space-y-4">
+      <!-- Campo usuario -->
       <div>
-
         <label class="block font-medium" for="usuario">Usuario</label>
-
         <input name="usuario" type="text" id="usuario" class="w-full border px-4 rounded" placeholder="Ingresa tu Usuario">
-
       </div>
 
-      <!--Campo correo-->
+      <!-- Campo correo -->
       <div>
-
-        <label class="block font-medium" for="contrasena">Correo Electrónico</label>
-
-        <input name="correo" type="email" id="correo" class="w-full border px-4 rounded" placeholder="Ejemplo@gmail.com">
-
+        <label class="block font-medium" for="correo">Correo Electrónico</label>
+        <input name="correo" type="email" id="correo" class="w-full border px-4 rounded" placeholder="ejemplo@gmail.com">
       </div>
 
-
-      <!--Campo password-->
-
-       <div>
-
-        <label class="block font-medium" for="contrasena">Contraseña</label>
-
-        <input name="contrasena" type="password" id="clave" class="w-full border px-4 rounded" placeholder="***********">
-
-        <a class="recuperar-contrasena" href="https://example.com">Olvidé mi contraseña</a>
-
+      <!-- Campo contraseña -->
+      <div>
+        <label class="block font-medium" for="clave">Contraseña</label>
+        <input name="clave" type="password" id="clave" class="w-full border px-4 rounded" placeholder="***********">
+        <a class="text-sm text-blue-500 hover:underline" href="#">Olvidé mi contraseña</a>
       </div>
 
-      <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-800 transition">Entrar</button>
-
+      <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-800 transition">
+        Registrarse
+      </button>
     </form>
-
   </div>
 
+  <!-- Script Supabase + Validación -->
   <script>
+    const SUPABASE_URL = "https://edspleufcxzymxzxgxlq.supabase.co";
+    const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVkc3BsZXVmY3h6eW14enhneGxxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTAxOTE2OTUsImV4cCI6MjA2NTc2NzY5NX0.81JCfU3kb_P5-ZnlYJ5SK9EjYem1TGHm5ek3lXtigek";
 
-    //Cuando el documento este 100% cargado
-
-    document.addEventListener('DOMContentLoaded', ()=>{
-
-      //Obtener la referencia a los campos: user y pass + el botón
-
+    document.addEventListener('DOMContentLoaded', () => {
       const form = document.getElementById('loginForm');
-
       const usuario = document.getElementById('usuario');
-
-      const correo = document.getElementById('correo')
-
+      const correo = document.getElementById('correo');
       const clave = document.getElementById('clave');
 
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
 
-
-      //Añadir y prevenir un evento por defecto
-
-      //e=evento que previene la recarga de la pagina
-
-      form.addEventListener('submit', (evento)=>{
-
-        evento.preventDefault();
-
-
-
-        //quitar una clase específica
-
+        // Quitar clases de error
         usuario.classList.remove('border-red-500');
-
+        correo.classList.remove('border-red-500');
         clave.classList.remove('border-red-500');
 
-
-
-        //Validar si los campos están vacíos
-
-        if(usuario.value.trim()===''|| clave.value.trim()===''){
-
-
-
-          //Si el campo del usuario está vacío
-
-          if(usuario.value.trim()===''){
-
-            usuario.classList.add('border-red-500');
-
-          }
-
-
-
-           //Si el campo del password está vacío
-
-          if(clave.value.trim()===''){
-
-            clave.classList.add('border-red-500');
-
-          }
-
-
-
-          //Mostramos una alerta con sweetAlert2
+        // Validar campos vacíos
+        if (usuario.value.trim() === '' || correo.value.trim() === '' || clave.value.trim() === '') {
+          if (usuario.value.trim() === '') usuario.classList.add('border-red-500');
+          if (correo.value.trim() === '') correo.classList.add('border-red-500');
+          if (clave.value.trim() === '') clave.classList.add('border-red-500');
 
           Swal.fire({
-
-            icon: 'error',//x
-
-            title:'Campos vacíos',
-
-            text: 'Por favor completa todos los campos!'
-
+            icon: 'error',
+            title: 'Campos vacíos',
+            text: 'Por favor completa todos los campos.'
           });
-
-
-
-
-
-
-
-          //el usuario completó todos los campos bien ok
-
-        }else{
-
-           Swal.fire({
-
-            icon: 'success',//x
-
-            title:'!Registro Exitoso! 😁👍',
-
-            text: `Hola ${usuario.value.trim()} ✔️`,
-
-            timer: 2000,
-
-            showConfirmButton: false
-
-          });
-
+          return;
         }
 
+        // Guardar en Supabase
+        const res = await fetch(`${SUPABASE_URL}/rest/v1/usuarios`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            apikey: SUPABASE_KEY,
+            Authorization: `Bearer ${SUPABASE_KEY}`,
+            Prefer: 'return=representation'
+          },
+          body: JSON.stringify({
+            nombre: usuario.value.trim(),
+            correo: correo.value.trim(),
+            pass: clave.value.trim()
+          })
+        });
+
+        if (!res.ok) {
+          Swal.fire("Error", "No se pudo guardar el usuario", "error");
+          return;
+        }
+
+        const data = await res.json();
+        Swal.fire({
+          icon: 'success',
+          title: '¡Registro exitoso!',
+          text: `Bienvenido, ${usuario.value}!`,
+          timer: 2000,
+          showConfirmButton: false
+        });
+
+        form.reset();
       });
-
     });
-
   </script>
-
-<body>
-    
 </body>
 </html>
