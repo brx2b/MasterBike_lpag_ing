@@ -98,9 +98,11 @@
         });
 
         if (!res.ok) {
-          Swal.fire("Error", "No se pudo guardar el usuario", "error");
+          const errorData = await res.json();
+          console.error('Error:', errorData);
+          Swal.fire("Error", "No se pudo guardar el usuario: " + errorData.message, "error");
           return;
-        }
+        }  
 
         const data = await res.json();
         Swal.fire({
