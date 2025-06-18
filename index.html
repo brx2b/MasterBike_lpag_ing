@@ -37,11 +37,19 @@
             const errorElement = document.getElementById('errorS');
 
             // Validar campos vacíos
+            const nicknameU = document.getElementById('nicknameU');
+            const contraU = document.getElementById('contraU');
             if (nickname === '' || password === '') {
+                if (nicknameU.value.trim() === '') nicknameU.classList.add('border-red-500');
+                if (contraU.value.trim() === '') contraU.classList.add('border-red-500');
+                nicknameU.classList.add('error');
+                contraU.classList.add('error');
                 errorElement.textContent = 'Por favor completa todos los campos.';
+
                 return;
             }
-
+            nicknameU.classList.remove('error');
+            contraU.classList.remove('error');
             // Consultar usuario en Supabase
             const res = await fetch(`${SUPABASE_URL}/rest/v1/usuarios?nombre=eq.${nickname}&pass=eq.${password}`, {
                 method: 'GET',
@@ -66,9 +74,10 @@
             if (data.length === 0) {
                 errorElement.textContent = 'Credenciales incorrectas.';
             } else {
-                // Aquí puedes redirigir al usuario a otra página o mostrar un mensaje de éxito
+                // Aquí puedes redirigir al usuario a otra página o mostrar un mensaje de éxitonicknameU.classList.add('error');
+                
                 alert(`¡Bienvenido, ${nickname}!`);
-                 window.location.href = 'Inicio/inicio.html';
+                window.location.href = 'Inicio/inicio.html';
             }
         }
 
@@ -76,6 +85,7 @@
             // Lógica para redirigir a la página de registro
             window.location.href = 'registro.html'; 
         }
+
     </script>
 </body>
 </html>

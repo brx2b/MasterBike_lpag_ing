@@ -27,6 +27,13 @@ input {
     border-radius: 4px;
     transition: border-color 0.2s;
 }
+.error {
+  border: 2px solid red;
+}
+.correcto{
+    border: 2px solid green;
+}
+
 
 input:focus {
     border-color: #0056b3; /* Color de borde al enfocar */
