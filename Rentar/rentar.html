@@ -41,11 +41,11 @@
     box-shadow: inset 0 0 15px rgba(0,0,0,0.15);
   }
   .barra-izquierda {
-    background-image: url('/MasterBike_lpag_ing/imsss/my24-sight-action-graceyhemstreet-5742-xl_001.jpg');
+    background-image: url('/imsss/my24-sight-action-graceyhemstreet-5742-xl_001.jpg');
     background-position: -750px 0px;
   }
   .barra-derecha {
-    background-image: url('/MasterBike_lpag_ing/imsss/istockphoto-2155980786-2048x2048.jpg');
+    background-image: url('/imsss/istockphoto-2155980786-2048x2048.jpg');
     background-position: -450px 0px;
   }
   /* Contenedor central */
@@ -84,7 +84,7 @@
   }
   .bicicleta-img {
     width: 100%;
-    height: 140px;
+    height: 230px;
     object-fit: cover;
   }
   .bicicleta-info {
@@ -126,6 +126,7 @@
   }
   /* Carrito */
   .carrito {
+    position: relative;
     flex: 1;
     background: #e0f2fe;
     border-radius: 16px;
@@ -252,6 +253,18 @@
     background: #2563eb;
     border-radius: 12px;
   }
+  .confirmarRentaBtn{
+    margin-top: 35px;
+    padding: 10px 30px;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 14px;
+    background-color: #652aef;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    align-self: center;
+  }
   /* Responsive */
   @media (max-width: 1024px) {
     main {
@@ -292,13 +305,11 @@
         <h3>Boleta de Renta</h3>
         <div class="boleta-lista" id="boletaLista"></div>
         <div class="boleta-total"></div>
+        <button id="confirmarRentaBtn" class="confirmarRentaBtn">Confirmar Renta</button>
       </div>
     </aside>
   </main>
   <div class="barra barra-derecha" role="img" aria-label="Persona montando bicicleta"></div>
-
-  <!-- ✅ Agrega esta línea ANTES de usar createClient -->
-
   <script>
     
   </script>
