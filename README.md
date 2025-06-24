@@ -1,11 +1,11 @@
-# ¡MasterBike landing page! (W.I.P)
+# ¡MasterBike landing page! 
 Página web para evaluación ing software que incluye:
 
-- Pestaña principal inicio de sesión de MasterBike (w.i.p).
-- pestaña registro de usuario nuevo en MasterBike (w.i.p)
+- Pestaña principal inicio de sesión de MasterBike.
+- pestaña registro de usuario nuevo en MasterBike.
 - Pestaña inicio con opción de solicitar arriendo y reparación de bicicletas.
 - Pestaña arriendo de bicicletas.
-- Pestaña reparación de bicicletas (w.i.p).
+- Pestaña reparación de bicicletas.
 
 # Herramientas utilizadas:
 - Visual Studio Code
@@ -26,6 +26,3 @@ Página web para evaluación ing software que incluye:
 ![image](https://github.com/user-attachments/assets/56202edf-a268-4770-886a-3b7e3727d8de)
 
 
-Sigue en progreso :v
-
-AGUANTE TF2 y el furry y maincra 
