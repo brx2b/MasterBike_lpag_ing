@@ -165,11 +165,14 @@ async function confirmarRenta() {
       window.location.href = 'index.html'; // O la ruta que uses
       return;
     }
+  
+
 const { data: arriendoData, error: arriendoError } = await window.supabaseClient
   .from('historial_arriendos')
   .insert({
     cliente_id: clienteId,
-    fecha_arriendo: new Date().toISOString()
+    fecha_arriendo: new Date().toISOString(),
+    total: totalConIVA
   })
   .select('id')
   .single();
