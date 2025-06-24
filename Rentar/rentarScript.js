@@ -1,16 +1,16 @@
-
-// rentarScript.js
 // Supabase client
 document.addEventListener('DOMContentLoaded', () => {
   window.supabaseClient = supabase.createClient(
+    //url brx
     'https://pyevuwdwubtepetyltnu.supabase.co',
+    //key
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB5ZXZ1d2R3dWJ0ZXBldHlsdG51Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA0NzY2MTYsImV4cCI6MjA2NjA1MjYxNn0.LstnF5yWE9cPH4bs_y-9ojaFru7R69Yo1o5y58mdnFc'
   );
 
   // Inicializar catálogo y eventos
   renderCatalogo();
-  document.getElementById('generarBoletaBtn')
-    .addEventListener('click', generarBoleta);
+  document.getElementById('generarBoletaBtn').addEventListener('click', generarBoleta);
+  document.getElementById('confirmarRentaBtn').addEventListener('click', confirmarRenta);
 });
 
 let bicicletasGlobal = [];
@@ -57,7 +57,7 @@ function agregarAlCarrito(id) {
     carrito.push({
       id: bici.id,
       nombre: bici.nombre,
-      precio: Number(bici.valor),
+      valor: Number(bici.valor),
       cantidad: 1
     });
   }
@@ -95,13 +95,13 @@ function renderCarrito() {
         <div class="carrito-item-nombre">${item.nombre}</div>
         <div class="carrito-item-cantidad">Cantidad: ${item.cantidad}</div>
       </div>
-      <div class="carrito-item-precio">$${(item.precio * item.cantidad).toLocaleString('es-CL')}</div>
+      <div class="carrito-item-precio">$${(item.valor * item.cantidad).toLocaleString('es-CL')}</div>
       <button class="btn-eliminar" onclick="quitarDelCarrito(${item.id})">Eliminar</button>
     `;
     lista.appendChild(div);
   });
 
-  const total = carrito.reduce((sum, item) => sum + item.precio * item.cantidad, 0);
+  const total = carrito.reduce((sum, item) => sum + item.valor * item.cantidad, 0);
   totalEl.textContent = `Total: $${total.toLocaleString('es-CL')}`;
 }
 
@@ -109,31 +109,77 @@ function generarBoleta() {
   const boletaEl = document.getElementById('boleta');
   const listaBoleta = document.getElementById('boletaLista');
   const totalBoleta = document.querySelector('.boleta-total');
+
   if (carrito.length === 0) {
     alert('El carrito está vacío. Agrega bicicletas antes de generar la boleta.');
     return;
   }
-  // Limpiar
+
   listaBoleta.innerHTML = '';
-  // Agregar items
+
   carrito.forEach(item => {
     const div = document.createElement('div');
     div.className = 'boleta-item';
     div.innerHTML = `
       <span>${item.nombre} (x${item.cantidad})</span>
-      <span>$${(item.precio * item.cantidad).toLocaleString('es-CL')}</span>
+      <span>$${(item.valor * item.cantidad).toLocaleString('es-CL')}</span>
     `;
+      div.innerHTML = `
+  <div>
+    <strong>${item.nombre} (x${item.cantidad})</strong>
+    <div class="boleta-item-detalle">
+      $${item.valor.toLocaleString('es-CL')} c/u
+    </div>
+  </div>
+  <span>$${(item.valor * item.cantidad).toLocaleString('es-CL')}</span>
+`;
     listaBoleta.appendChild(div);
   });
-  // Total sin IVA
-  const totalSinIVA = carrito.reduce((sum, item) => sum + item.precio * item.cantidad, 0);
-  
-  // Calcular IVA
-  const iva = totalSinIVA * 0.19; // 19%
+
+  const totalSinIVA = carrito.reduce((sum, item) => sum + item.valor * item.cantidad, 0);
+  const iva = totalSinIVA * 0.19;
   const totalConIVA = totalSinIVA + iva;
-  // Mostrar total
+
   totalBoleta.textContent = `Total a pagar (incluye IVA 19%): $${totalConIVA.toLocaleString('es-CL')}`;
-  // Mostrar boleta
   boletaEl.style.display = 'flex';
   boletaEl.scrollIntoView({ behavior: 'smooth' });
+}
+
+async function confirmarRenta() {
+  if (carrito.length === 0) {
+    alert('El carrito está vacío. Agrega bicicletas antes de confirmar la renta.');
+    return;
+  }
+
+  const totalSinIVA = carrito.reduce((sum, item) => sum + item.valor * item.cantidad, 0);
+  const iva = totalSinIVA * 0.19;
+  const totalConIVA = totalSinIVA + iva;
+
+  // Registrar cada renta en Supabase
+  const rentasParaRegistrar = carrito.map(item => ({
+    bicicleta_id: item.id,
+    nombre_bicicleta: item.nombre,
+    cantidad: item.cantidad,
+    precio_unitario: item.valor,
+    subtotal: item.valor * item.cantidad,
+    iva: iva,
+    total: totalConIVA,
+    fecha_renta: new Date().toISOString()
+  }));
+
+  const { data, error } = await window.supabaseClient
+    .from('rentas')
+    .insert(rentasParaRegistrar);
+
+  if (error) {
+    console.error('Error al almacenar rentas:', error);
+    alert('Error al confirmar la renta. Por favor intente nuevamente.');
+    return;
+  }
+
+  alert('¡Renta confirmada exitosamente!');
+  carrito = [];
+  renderCarrito();
+  document.getElementById('boleta').style.display = 'none';
+
 }
