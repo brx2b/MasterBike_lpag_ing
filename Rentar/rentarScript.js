@@ -17,6 +17,8 @@ let bicicletasGlobal = [];
 let carrito = [];
 
 async function renderCatalogo() {
+  
+
   const { data: bicicletas, error } = await window.supabaseClient
     .from('bodega_bicicletas')
     .select('*');
@@ -155,31 +157,50 @@ async function confirmarRenta() {
   const iva = totalSinIVA * 0.19;
   const totalConIVA = totalSinIVA + iva;
 
-  // Registrar cada renta en Supabase
-  const rentasParaRegistrar = carrito.map(item => ({
-    bicicleta_id: item.id,
-    nombre_bicicleta: item.nombre,
-    cantidad: item.cantidad,
-    precio_unitario: item.valor,
-    subtotal: item.valor * item.cantidad,
-    iva: iva,
-    total: totalConIVA,
-    fecha_renta: new Date().toISOString()
-  }));
+// Paso 1: Crear registro en historial_arriendos
+  const clienteId = localStorage.getItem('usuarioId');
 
-  const { data, error } = await window.supabaseClient
-    .from('rentas')
-    .insert(rentasParaRegistrar);
+    if (!clienteId) {
+      alert("No se pudo identificar al usuario. Inicia sesión nuevamente.");
+      window.location.href = 'index.html'; // O la ruta que uses
+      return;
+    }
+const { data: arriendoData, error: arriendoError } = await window.supabaseClient
+  .from('historial_arriendos')
+  .insert({
+    cliente_id: clienteId,
+    fecha_arriendo: new Date().toISOString()
+  })
+  .select('id')
+  .single();
 
-  if (error) {
-    console.error('Error al almacenar rentas:', error);
-    alert('Error al confirmar la renta. Por favor intente nuevamente.');
-    return;
-  }
 
-  alert('¡Renta confirmada exitosamente!');
-  carrito = [];
-  renderCarrito();
-  document.getElementById('boleta').style.display = 'none';
+if (arriendoError) {
+  console.error('Error al crear el historial de arriendo:', arriendoError);
+  alert('Error al confirmar la renta. Intenta nuevamente.');
+  return;
+}
 
+const arriendoId = arriendoData.id;
+
+// Paso 2: Insertar bicicletas arrendadas en arriendos_bicicletas
+const registrosParaInsertar = carrito.map(item => ({
+  arriendo_id: arriendoId,
+  bicicleta_id: item.id // Este "id" debe coincidir con el ID en bodega_bicicletas
+}));
+
+const { error: insercionError } = await window.supabaseClient
+  .from('arriendos_bicicletas') // Nombre correcto de la tabla
+  .insert(registrosParaInsertar);
+
+if (insercionError) {
+  console.error('Error al registrar bicicletas arrendadas:', insercionError);
+  alert('Error al registrar las bicicletas. Intenta nuevamente.');
+  return;
+}
+
+alert('¡Renta confirmada exitosamente!');
+carrito = [];
+renderCarrito();
+document.getElementById('boleta').style.display = 'none';
 }
