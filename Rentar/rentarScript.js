@@ -109,15 +109,12 @@ function generarBoleta() {
   const boletaEl = document.getElementById('boleta');
   const listaBoleta = document.getElementById('boletaLista');
   const totalBoleta = document.querySelector('.boleta-total');
-
   if (carrito.length === 0) {
     alert('El carrito está vacío. Agrega bicicletas antes de generar la boleta.');
     return;
   }
-
   // Limpiar
   listaBoleta.innerHTML = '';
-
   // Agregar items
   carrito.forEach(item => {
     const div = document.createElement('div');
@@ -128,11 +125,14 @@ function generarBoleta() {
     `;
     listaBoleta.appendChild(div);
   });
-
-  // Total
-  const total = carrito.reduce((sum, item) => sum + item.precio * item.cantidad, 0);
-  totalBoleta.textContent = `Total a pagar: $${total.toLocaleString('es-CL')}`;
-
+  // Total sin IVA
+  const totalSinIVA = carrito.reduce((sum, item) => sum + item.precio * item.cantidad, 0);
+  
+  // Calcular IVA
+  const iva = totalSinIVA * 0.19; // 19%
+  const totalConIVA = totalSinIVA + iva;
+  // Mostrar total
+  totalBoleta.textContent = `Total a pagar (incluye IVA 19%): $${totalConIVA.toLocaleString('es-CL')}`;
   // Mostrar boleta
   boletaEl.style.display = 'flex';
   boletaEl.scrollIntoView({ behavior: 'smooth' });
