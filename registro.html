@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registro - MasterBike</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
+
+  <!-- Ícono y estilos -->
+  <link rel="icon" href="imsss/favicon.ico">
+  <link rel="stylesheet" href="EstiloPrincipal.css">
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+
+  <!-- Contenedor -->
+  <div class="bg-white p-6 rounded-xl shadow w-full max-w-sm">
+    <h2 class="text-2xl font-bold text-center text-blue-600 mb-4">Registro Usuario</h2>
+
+    <!-- Formulario -->
+    <form id="loginForm" class="space-y-4">
+      <!-- Campo usuario -->
+      <div>
+        <label class="block font-medium" for="usuario">Usuario</label>
+        <input name="usuario" type="text" id="usuario" class="w-full border px-4 rounded" placeholder="Ingresa tu Usuario">
+      </div>
+
+      <!-- Campo correo -->
+      <div>
+        <label class="block font-medium" for="correo">Correo Electrónico</label>
+        <input name="correo" type="email" id="correo" class="w-full border px-4 rounded" placeholder="ejemplo@gmail.com">
+      </div>
+
+      <!-- Campo contraseña -->
+      <div>
+        <label class="block font-medium" for="clave">Contraseña</label>
+        <input name="clave" type="password" id="clave" class="w-full border px-4 rounded" placeholder="***********">
+        
+      </div>
+
+      <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-800 transition">
+        Registrarse
+      </button>
+    </form>
+  </div>
+
+  <!-- Script Supabase + Validación -->
+  <script>
+    const SUPABASE_URL = "https://pyevuwdwubtepetyltnu.supabase.co";
+    const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB5ZXZ1d2R3dWJ0ZXBldHlsdG51Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA0NzY2MTYsImV4cCI6MjA2NjA1MjYxNn0.LstnF5yWE9cPH4bs_y-9ojaFru7R69Yo1o5y58mdnFc";
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('loginForm');
+      const usuario = document.getElementById('usuario');
+      const correo = document.getElementById('correo');
+      const clave = document.getElementById('clave');
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        // Quitar clases de error
+        usuario.classList.remove('border-red-500');
+        correo.classList.remove('border-red-500');
+        clave.classList.remove('border-red-500');
+
+        // Validar campos vacíos
+        if (usuario.value.trim() === '' || correo.value.trim() === '' || clave.value.trim() === '') {
+          if (usuario.value.trim() === '') usuario.classList.add('border-red-500');
+          if (correo.value.trim() === '') correo.classList.add('border-red-500');
+          if (clave.value.trim() === '') clave.classList.add('border-red-500');
+
+          Swal.fire({
+            icon: 'error',
+            title: 'Campos vacíos',
+            text: 'Por favor completa todos los campos.'
+          });
+          return;
+        }
+
+        // Guardar en Supabase
+        const res = await fetch(`${SUPABASE_URL}/rest/v1/usuarios`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            apikey: SUPABASE_KEY,
+            Authorization: `Bearer ${SUPABASE_KEY}`,
+            Prefer: 'return=representation'
+          },
+          body: JSON.stringify({
+            nombre: usuario.value.trim(),
+            correo: correo.value.trim(),
+            pass: clave.value.trim()
+          })
+        });
+
+        if (!res.ok) {
+          const errorData = await res.json();
+          console.error('Error:', errorData);
+          Swal.fire("Error", "No se pudo guardar el usuario: " + errorData.message, "error");
+          return;
+        }  
+
+        const data = await res.json();
+        Swal.fire({
+          icon: 'success',
+          title: '¡Registro exitoso!',
+          text: `Bienvenido, ${usuario.value}!`,
+          timer: 2000,
+          showConfirmButton: true
+        }).then(() => {
+          form.reset(); 
+          window.location.href = 'index.html'; 
+      })
+    });
+  })
+  </script>
+</body>
+</html>

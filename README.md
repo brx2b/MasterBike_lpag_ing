@@ -1,25 +1,16 @@
 # ¡MasterBike landing page! 
 Página web para evaluación ing software que incluye:
 
-- Pestaña principal inicio de sesión.
-- pestaña registro de usuario.
-- Pestaña de inicio con opción de solicitar arriendo y verificar estado de reparación.
+- Pestaña principal inicio de sesión de MasterBike.
+- pestaña registro de usuario nuevo en MasterBike.
+- Pestaña inicio con opción de solicitar arriendo y reparación de bicicletas.
 - Pestaña arriendo de bicicletas.
-- Pestaña estado de reparación.
----
-
-# Proyecto realizado por los siguientes integrantes:
-
-- Brian Aravena
-- Fabian Reyes
-- Benjamín ibañez
-- Diego Villota
+- Pestaña reparación de bicicletas.
 
 # Herramientas utilizadas:
 - Visual Studio Code
 - HTML y CSS.
 - JavaScript.
-- SupaBase.
 ---
 
 **Pestaña inicio de sesión:**
@@ -34,8 +25,7 @@ Página web para evaluación ing software que incluye:
 
 **Pestaña arriendo de bicicletas:**
 
-![image](https://github.com/user-attachments/assets/4c369dfd-a575-4b73-8b41-0ac162e1eafb)
-
+![image](https://github.com/user-attachments/assets/170f9695-2811-4c20-9394-7a152e0d9c52)
 
 
 

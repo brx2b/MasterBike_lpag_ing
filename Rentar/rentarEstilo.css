@@ -1,0 +1,12 @@
+.boleta-item-detalle {
+  font-size: 0.85rem;
+  color: #666;
+  margin-top: 4px;
+}
+
+.iva-resumen {
+  border-top: 1px dashed #999;
+  padding-top: 8px;
+  margin-top: 8px;
+  font-size: 0.9rem;
+}
