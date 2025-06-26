@@ -6,6 +6,14 @@ Página web para evaluación ing software que incluye:
 - Pestaña de inicio con opción de solicitar arriendo y verificar estado de reparación.
 - Pestaña arriendo de bicicletas.
 - Pestaña estado de reparación.
+---
+
+# Proyecto realizado por los siguientes integrantes:
+
+- Brian Aravena
+- Fabian Reyes
+- Benjamín ibañez
+- Diego Villota
 
 # Herramientas utilizadas:
 - Visual Studio Code
