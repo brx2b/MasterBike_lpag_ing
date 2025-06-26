@@ -9,7 +9,10 @@
 </head>
 <style>
     body{
+        background-image: url(/imsss/pexels-cristiana-bonzanini-137434997-11180288.jpg);
         background-color: white;
+        background-repeat: no-repeat;
+        background-size: cover;
     }
     .ventana{
         width: 500px;
@@ -26,20 +29,47 @@
         font-family: 'Lucida Sans', Verdana, Geneva, Tahoma, sans-serif;
     }
     button{
-        align-self: center;
-        margin-top: 20px;
-        position: relative;
+        padding: 10px 15px;
+        font-size: 100%;
+        border: none;
+        border-radius: 4px;
+        background-color: #007bff; /* Color de fondo */
+        color: white;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+    button:hover {
+    background-color: #0056b3; /* Color de fondo al pasar el cursor */
+    }
+    .barra-superior {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: rgb(49, 49, 49);
+      color: white;
+      display: flex;
+      align-items: center; /* Cambiado a center para alinear verticalmente */
+      padding: 9px 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+      z-index: 1000;
     }
 
 </style>
 <body>
+    <div class="barra-superior">
+        <a href="/Inicio/inicio.html">
+        <img src="/imsss/631818-200.png" style="width: 40px; height: 40px; background-color: rgb(255, 255, 255); border: rgb(71, 71, 71); box-shadow: 0px 0px 10px rgb(107, 106, 106); border-style: solid; border-width: 2px; padding: 2px;" alt="Inicio">
+        </a>
+        <a href="/Inicio/inicio.html" style="text-decoration: none;"><p style="margin-left: 10px; color: white;">Inicio</p></a>
+    </div>
     <div class="ventana">
         <h >Estado reparación</h>
         <br><br><br>
         <p id="estadoReparacion"></p>
         <br>
         <br><br>
-        <button id="estadoReparacionBtn" onclick="estadoReparacion()">Ver estado de reparación</button>
+        <button style="position: relative" id="estadoReparacionBtn" onclick="estadoReparacion()">Ver estado de reparación</button>
     </div>
     
 </body>
@@ -75,7 +105,7 @@
     } else {
         alert(`Tienes ${arriendos.length} arriendo(s) registrado(s).`);
         // Aquí podrías redirigir a un estado, historial o página de reparación
-        document.getElementById('estadoReparacion').innerText = '🔴 Actualmente no tienes bicicletas en reparación.';
+        document.getElementById('estadoReparacion').innerText = '⚠️🟢 Actualmente no tienes bicicletas en reparación.';
     }
 }
 
