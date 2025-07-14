@@ -69,7 +69,7 @@
             }
 
             const data = await res.json();
-
+            
             // Verificar si se encontró el usuario
             if (data.length === 0) {
                 errorElement.textContent = 'Credenciales incorrectas.';
@@ -80,10 +80,22 @@
                 localStorage.setItem('usuarioId', usuario.id_usuario);
                 localStorage.setItem('usuarioNombre', usuario.nombre);
 
-                alert(`¡Bienvenido, ${usuario.nombre}!`);
-                window.location.href = 'Inicio/inicio.html';
+                const nicknameU = document.getElementById('nicknameU');
+                const contraU = document.getElementById('contraU');
+                if(usuario.permiso=='administrador'){
+                    alert(`Bienvenido administrador`);
+                    window.location.href = 'Ad/inicioAD.html';
+                }else{
+                    alert(`¡Bienvenido, ${usuario.nombre}!`);
+                    window.location.href = 'Inicio/inicio.html';
+                }
             }
         }
+
+        /*if(usuario.id_usuario==7){
+                    alert(`Bienvenido administrador`);
+                    window.location.href = 'Ad/inicioAD.html';
+                    */
 
         function registro() {
             // Lógica para redirigir a la página de registro

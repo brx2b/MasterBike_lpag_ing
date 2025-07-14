@@ -6,6 +6,10 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Inicio - MasterBike</title>
+<link rel="icon" href="/imsss/favicon.ico">
+<script>
+  
+</script>
 <style>
     
   /* Reset básico */
@@ -13,7 +17,7 @@
     box-sizing: border-box;
   }
   body {
-    margin: 0;
+    margin: 0 auto;
     font-family: 'Lucida Sans', Verdana, Geneva, Tahoma, sans-serif;
     background: #5c5c5c;
     display: flex;
@@ -29,8 +33,6 @@
     flex-shrink: 0;
     /* Para ver las barras aunque no carguen imagen */
     background-color: #aaaaaa;
-    border-radius: 0 16px 16px 0;
-    box-shadow: 2px 0 8px rgba(0,0,0,0.1);
   }
   .barra-izquierda {
     background-image: url(/imsss/Excursiones-5.jpg);
@@ -46,14 +48,13 @@
 
   }
   .centro {
-    flex-grow: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     padding: 40px 20px;
     background-color: rgba(255, 255, 255, 0.9);
-    margin: 0 16px;
+    margin: 0px 16px;
     border-radius: 16px;
     box-shadow: 0 6px 16px rgba(0,0,0,0.15);
     max-width: 1200px;
@@ -113,8 +114,7 @@
       border-radius: 0 0 16px 16px !important;
     }
     .centro {
-      max-width: 90%;
-      margin: 0;
+      margin: 0 auto;
       border-radius: 16px;
       box-shadow: 0 6px 16px rgba(0,0,0,0.12);
     }
